@@ -1,0 +1,330 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="PlacesToGo.master.cs" Inherits="PlacesToGo" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Places To Go - Place Directory & Listings</title>
+    <link rel="stylesheet" href="assets/css/plugins.css" />
+    <link href="assets/css/styles.css" rel="stylesheet" />
+    <link href="assets/css/colors.css" rel="stylesheet" />
+    <link href="assets/css/custom.css" rel="stylesheet" />
+
+    <link rel="shortcut icon" href="assets/Images/Logo/Places%20To%20Go%20Logo.jpg" type="image/x-icon" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" class="red-skin" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <div id="preloader">
+            <div class="preloader"><span></span><span></span></div>
+        </div>
+
+        <div id="main-wrapper">
+            <!--  Nav 1  -->
+            <div class="header header-transparent change-logo header-1-d-none">
+                <div class="container">
+                    <nav id="navigation" class="navigation navigation-landscape">
+                        <div class="nav-header">
+                            <a class="nav-brand static-logo" href="index.aspx">
+                                <img src="assets/Images/Logo/Places%20To%20Go%20Logo.jpg" class="logo" alt="" /></a>
+                            <a class="nav-brand fixed-logo" href="index.aspx">
+                                <img src="assets/Images/Logo/Places%20To%20Go%20Logo.jpg" class="logo" alt="" /></a>
+                            <div class="nav-toggle"></div>
+                        </div>
+                        <div class="nav-menus-wrapper" style="transition-property: none;">
+                            <ul class="nav-menu">
+                                <li class="active"><a href="index.aspx">Home<span class="submenu-indicator"></span></a></li>
+
+                                <li><a href="explore.aspx">Explore<span class="submenu-indicator"></span></a>
+                                    <ul class="nav-dropdown nav-submenu">
+                                        <asp:ListView ID="lv_submenu" runat="server">
+                                            <ItemTemplate>
+                                                <li><a href="explore.aspx?search=<%#Eval("categoryName") %>"><%#Eval("categoryName") %></a></li>
+                                            </ItemTemplate>
+                                        </asp:ListView>
+                                        <li><a href="explore.aspx">See More</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="blog.aspx">Blogs</a></li>
+                            </ul>
+
+                            <ul class="nav-menu nav-menu-social align-to-right">
+                                <li id="logoutdiv" runat="server">
+                                    <a href="login.aspx" data-toggle="modal" data-target="#login">
+                                        <i class="fa fa-sign-in-alt mr-1"></i>
+                                        <span class="dn-lg">Sign In</span>
+                                        <span class="submenu-indicator"></span>
+                                    </a>
+                                </li>
+
+                                <li class="add-listing bg-whit">
+                                    <asp:LinkButton ID="AddBlog" OnClick="AddBlog_Click" runat="server"><i class="fas fa-plus-circle"></i>Add Blogs</asp:LinkButton>
+                                </li>
+
+                                <li class="attributes" id="logindiv" runat="server">
+                                    <div class="btn-group account-drop">
+                                        <asp:LinkButton ID="btnDashboard" OnClick="btnDashboard_Click" runat="server" BorderStyle="None" class="btn btn-order-by-filt theme-cl">
+                                           <%=uimage %> Hello <%= Session["UserName"].ToString() %>
+                                        </asp:LinkButton>
+                                        <ul class="nav-dropdown nav-submenu">
+                                            <li><a href="dashboard.aspx">User Profile</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+            <!--  Nav 2  -->
+            <div class="header header-light header-2-d-none">
+                <div class="container">
+                    <nav id="navigationtwo" class="navigation navigation-landscape">
+                        <div class="nav-header">
+                            <a class="nav-brand" href="index.aspx">
+                                <img src="assets/Images/Logo/Places%20To%20Go%20Logo.jpg" class="logo" alt="" />
+                            </a>
+                            <div class="nav-toggle"></div>
+                        </div>
+                        <div class="nav-menus-wrapper">
+                            <ul class="nav-menu">
+
+                                <li class="active"><a href="index.aspx">Home<span class="submenu-indicator"></span></a></li>
+
+                                <li><a href="explore.aspx">Explore<span class="submenu-indicator"></span></a>
+                                    <ul class="nav-dropdown nav-submenu">
+                                        <asp:ListView ID="lv_submenu2" runat="server">
+                                            <ItemTemplate>
+                                                <li><a href="explore.aspx?search=<%#Eval("categoryName") %>"><%#Eval("categoryName") %></a></li>
+                                            </ItemTemplate>
+                                        </asp:ListView>
+                                        <li><a href="explore.aspx">See More</a></li>
+                                    </ul>
+                                </li>
+
+                                <li><a href="blog.aspx">Blogs</a></li>
+
+                            </ul>
+
+                            <ul class="nav-menu nav-menu-social align-to-right">
+
+                                <li id="logoutdiv2" runat="server"><a href="login.aspx" data-toggle="modal" data-target="#login">
+                                    <i class="fa fa-sign-in-alt mr-1"></i><span class="dn-lg">Sign In</span><span class="submenu-indicator"></span>
+                                </a>
+                                </li>
+                                <li class="add-listing">
+                                    <a href="add-blogs.aspx">
+                                        <i class="fas fa-plus-circle"></i>Add Blogs
+                                    </a>
+                                </li>
+                                <li class="attributes" id="logindiv2" runat="server">
+                                    <div class="btn-group account-drop">
+                                        <asp:LinkButton ID="btnDashboard2" OnClick="btnDashboard_Click" runat="server" BorderStyle="None" class="btn btn-order-by-filt theme-cl">
+                                            <%=uimage %> Hello <%= Session["UserName"].ToString() %>
+                                        </asp:LinkButton>
+                                        <ul class="nav-dropdown nav-submenu">
+                                            <li><a href="dashboard.aspx">User Profile</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+            <!-- ============================ Footer Start ================================== -->
+            <footer class="light-footer skin-light-footer">
+                <div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 d-sm-4 d-flex">
+                                <div class="footer-widget inline-block mx-auto">
+                                    <img src="assets/Images/Logo/Places%20To%20Go%20Logo.jpg" class="img-fluid f-logo d-block mx-auto" alt="" />
+                                    <p>
+                                        LNT Road, opp. Laxmi Narayan Temple,<br>
+                                        above sarsawati Book Stationers<br>
+                                        Bhilwara, Rajasthan 311001
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 d-sm-4 d-flex d-sm-w-50">
+                                <div class="footer-widget inline-block mx-auto">
+                                    <h4 class="widget-title">Useful links</h4>
+                                    <ul class="footer-menu">
+                                        <li><a href="add-blogs.aspx">Add Blogs</a></li>
+                                        <li><a href="explore.aspx">Explore</a></li>
+                                        <li><a href="index.aspx">Visit Places</a></li>
+                                        <li><a href="login.aspx">Login</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 d-sm-4 d-flex d-sm-w-50">
+                                <div class="footer-widget inline-block mx-auto">
+                                    <h4 class="widget-title">Social Platforms</h4>
+                                    <ul class="footer-bottom-social">
+                                        <li><a href="http://omsharma.pcbhilwara.com/"><i class="ti-facebook"></i></a></li>
+                                        <li><a href="http://omsharma.pcbhilwara.com/"><i class="ti-twitter"></i></a></li>
+                                        <li><a href="https://www.instagram.com/coder.om/"><i class="ti-instagram"></i></a></li>
+                                        <li><a href="https://www.linkedin.com/in/om-sharma-9abb3a258/"><i class="ti-linkedin"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <div class="container">
+                        <div class="row align-items-center">
+
+                            <div class="col-lg-12 col-md-12 text-center">
+                                <p class="mb-0">© <span id="currentYear" runat="server"></span>Places To Go. Designd & Developed By <a href="http://omsharma.pcbhilwara.com/">SPMPL</a> All Rights Reserved</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- ============================ Footer End ================================== -->
+
+            <!-- Log In Modal -->
+            <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registermodal">
+                <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+                    <div class="modal-content" id="registermodal">
+                        <span class="mod-close" data-dismiss="modal"><i class="ti-close"></i></span>
+                        <div class="modal-body">
+                            <h4 class="modal-header-title">Log <span class="theme-cl">In</span></h4>
+                            <div class="login-form">
+                                <div>
+                                    <div class="form-group">
+                                        <label>Username or Email</label>
+                                        <div class="input-with-icon gray">
+                                            <asp:TextBox ID="txtusername" class="form-control" type="text" placeholder="Your Username or Email" runat="server"></asp:TextBox>
+                                            <i class="ti-user"></i>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <div class="input-with-icon gray">
+                                            <asp:TextBox ID="txtpassword" class="form-control" type="password" placeholder="*******" runat="server"></asp:TextBox>
+                                            <i class="ti-unlock"></i>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <asp:Label ID="lblmsg" ForeColor="Red" runat="server" Text="" Visible="false"></asp:Label>
+                                        <asp:LinkButton ID="BtnLogIn" OnClick="BtnLogIn_Click" runat="server" class="text-white btn btn-md full-width pop-login" Text="Login"></asp:LinkButton>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modat-foot">
+                                <div class="md-left">Have't Account? <a href="register.aspx" class="theme-cl">Sign Up</a></div>
+                                <div class="md-right">
+                                    <div class="modat-foot">
+                                        <div class="md-right">
+                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#forgotPwd">
+                                                <i class="fa fa-sign-in-alt mr-1"></i><span class="dn-lg">Forget Password?</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Modal -->
+
+            <!-- Log In Modal -->
+            <div class="modal fade" id="forgotPwd" tabindex="-1" role="dialog" aria-labelledby="forgotPwdModal">
+                <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+                    <div class="modal-content" id="forgotPwdModal">
+                        <span class="mod-close" data-dismiss="modal"><i class="ti-close"></i></span>
+                        <div class="modal-body">
+                            <h6 class="modal-header-title">Change password by sending OTP to your registered <span class="theme-cl">email</span> !</h6>
+                            <div class="login-form">
+                                <div>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <div class="input-with-icon gray">
+                                            <asp:TextBox ID="txtEmailOTP" class="form-control" type="text" placeholder="Your Email" runat="server"></asp:TextBox>
+                                            <i class="ti-user"></i>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <asp:Label ID="lblSendOTP" ForeColor="Red" runat="server" Text="" Visible="false"></asp:Label>
+                                        <asp:Button ID="BtnSendOTP" runat="server" OnClick="BtnSendOTP_Click" class="text-white btn btn-md full-width pop-login" Text="Send OTP" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Modal -->
+
+            <a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Wrapper -->
+        <!-- ============================================================== -->
+
+        <!-- ============================================================== -->
+        <!-- All Jquery -->
+        <!-- ============================================================== -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/popper.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/js/rangeslider.js"></script>
+        <script src="assets/js/select2.min.js"></script>
+        <script src="assets/js/owl.carousel.min.js"></script>
+        <script src="assets/js/jquery.magnific-popup.min.js"></script>
+        <script src="assets/js/slick.js"></script>
+        <script src="assets/js/slider-bg.js"></script>
+        <script src="assets/js/lightbox.js"></script>
+        <script src="assets/js/imagesloaded.js"></script>
+        <script src="assets/js/jquery.counterup.min.js"></script>
+        <script src="assets/js/counterup.min.js"></script>
+
+        <script src="assets/js/custom.js"></script>
+        <!-- ============================================================== -->
+        <!-- This page plugins -->
+
+
+        <!-- Select2 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+        <script>
+            $("#ContentPlaceHolder1_ddcid").select2({
+                placeholder: "Select a programming language",
+                allowClear: true
+            });
+
+            $("#ContentPlaceHolder1_ddpid").select2({
+                placeholder: "Select a programming language",
+                allowClear: true
+            });
+
+            $("#multiple").select2({
+                placeholder: "Select a programming language",
+                allowClear: true
+            });
+        </script>
+
+    </form>
+</body>
+</html>

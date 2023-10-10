@@ -1,0 +1,4 @@
+server source id - 103.190.54.22,1533
+db name - placetogo
+user id - placetogo
+password - Tech@#$%123
