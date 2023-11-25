@@ -60,7 +60,7 @@ public partial class index : System.Web.UI.Page
             lv_categoryslider.DataBind();
         }
 
-        using (SqlDataAdapter sda = new SqlDataAdapter("select a.placeName,b.* from Place_Details_Table as a inner join Blog_Table as b on a.id=b.pid where b.status = 1 ORDER BY NEWID()",con))
+        using (SqlDataAdapter sda = new SqlDataAdapter("SELECT Place_Details_Table.placeName, Blog_Table.* FROM Place_Details_Table INNER JOIN Blog_Table ON Place_Details_Table.id = Blog_Table.pid WHERE Blog_Table.status = 1 ORDER BY NEWID()",con))
         {
             DataTable dt = new DataTable();
             sda.Fill(dt);
