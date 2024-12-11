@@ -11,7 +11,6 @@ Welcome to Places To Go, your ultimate travel destination directory! Discover ca
 - [Getting Started](#getting-started)
 - [Live Demo](#live-demo)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Introduction
 
@@ -68,11 +67,3 @@ Contributions to Places To Go are welcome! If you'd like to contribute to this p
 3. Make your changes and commit them.
 4. Push your changes to your fork.
 5. Submit a pull request with a detailed description of your changes.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-Created with ❤️ by [CoderOm]
